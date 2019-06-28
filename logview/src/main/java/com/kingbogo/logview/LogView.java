@@ -32,9 +32,12 @@ public class LogView {
     private FloatingView mFloatView;
     private FrameLayout mContainer;
 
+    private boolean mIsDeBug;
+
     private static volatile LogView mInstance;
 
     private LogView() {
+        mIsDeBug = BuildConfig.DEBUG;
     }
 
     public static LogView getInstance() {
@@ -52,6 +55,10 @@ public class LogView {
      * 初始化: 一般在 Application中调用、或在 Activity的onCreate中调用
      */
     public void init(Context context) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (mFloatView == null) {
             mFloatView = FloatingView.get();
         }
@@ -66,6 +73,10 @@ public class LogView {
      * 释放：App退出时调用
      */
     public void release() {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (mFloatView != null) {
             mFloatView.remove();
             mFloatView = null;
@@ -80,6 +91,10 @@ public class LogView {
      * 一般在Activity(或基类) 的 onStart()中调用
      */
     public void attach(Activity activity) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         mFloatView.attach(activity);
         mFloatView.icon(R.drawable.kb_icon_log);
         mFloatView.listener(new MagnetViewListener() {
@@ -116,6 +131,10 @@ public class LogView {
      * 设置 Log图标，在 attach 之后调用
      */
     public void setIconImg(@DrawableRes int resId) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (mFloatView != null) {
             mFloatView.icon(resId);
         }
@@ -125,6 +144,10 @@ public class LogView {
      * 一般在Activity(或基类) 的 onStop()中调用
      */
     public void detach(Activity activity) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (mPanelView != null && mContainer != null && ViewCompat.isAttachedToWindow(mPanelView)) {
             mContainer.removeView(mPanelView);
         }
@@ -135,6 +158,10 @@ public class LogView {
      * 增加一条日志
      */
     public void addLog(final String tag, final String log) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         Log.d(TAG, "addLog(), log: " + log);
         if (mPanelView != null) {
             mPanelView.post(new Runnable() {
@@ -150,26 +177,13 @@ public class LogView {
     }
 
     /**
-     * 清除所有日志
-     */
-    public void clearLogs() {
-        if (mPanelView != null) {
-            mPanelView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mPanelView.clearData();
-                    if (isShow4PanelView()) {
-                        mPanelView.notifyDataChanged();
-                    }
-                }
-            });
-        }
-    }
-
-    /**
      * 添加控制区域数据
      */
     public void addArea(final String area) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (CheckUtil.isEmpty(area)) {
             return;
         }
@@ -187,6 +201,10 @@ public class LogView {
      * 设置控制区域数据
      */
     public void setArea(final String... area) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (CheckUtil.isEmpty(area)) {
             return;
         }
@@ -204,6 +222,10 @@ public class LogView {
      * 设置控制区域数据
      */
     public void setArea(final List<String> list) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (CheckUtil.isEmpty(list)) {
             return;
         }
@@ -221,6 +243,10 @@ public class LogView {
      * 设置tips，支持Html格式
      */
     public void setTipsInfo(final String tipsInfo) {
+        if (!mIsDeBug) {
+            return;
+        }
+
         if (mPanelView != null) {
             mPanelView.post(new Runnable() {
                 @Override
