@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 透明 -->
+    <color name="kblv_transparent">#00000000</color>
+    <color name="kblv_area_bg">#999999</color>
+
+</resources>

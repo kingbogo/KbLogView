@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_panel_area_tv"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@drawable/bg_panel_area_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:padding="0.5dp"
+    android:paddingStart="10dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="5dp"
+    android:textColor="#A1DECC"
+    android:textSize="12sp"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0000000" />
+
+    <View
+        android:id="@+id/panel_spit_v"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/panel_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/panel_spit_v"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/panel_tips_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:maxLines="5"
+        android:textColor="#FFE4C4"
+        android:textSize="11sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/panel_spit_v"
+        tools:ignore="SmallSp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/panel_area_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/panel_tips_tv" />
+
+    <!-- 清空日志 -->
+    <Button
+        android:id="@+id/panel_clear_btn"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:text="@string/kb_clear"
+        android:textColor="#7B68EE"
+        android:textSize="13sp"
+        app:layout_constraintRight_toRightOf="@+id/panel_rv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</merge>
+
+
