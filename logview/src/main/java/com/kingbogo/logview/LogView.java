@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.imuxuan.floatingview.FloatingMagnetView;
 import com.imuxuan.floatingview.FloatingView;
 import com.imuxuan.floatingview.MagnetViewListener;
+import com.kingbogo.logview.listener.LogPanelListener;
 import com.kingbogo.logview.util.CheckUtil;
 
 import java.util.List;
@@ -83,6 +84,7 @@ public class LogView {
             mFloatView = null;
         }
         if (mPanelView != null) {
+            mPanelView.setPanelListener(null);
             removePanelView();
             mPanelView = null;
         }
@@ -137,6 +139,19 @@ public class LogView {
 
         if (mFloatView != null) {
             mFloatView.icon(resId);
+        }
+    }
+
+    /**
+     * 设置面板点击事件
+     */
+    public void setPanelListener(LogPanelListener panelListener) {
+        if (!mIsDeBug) {
+            return;
+        }
+
+        if (mPanelView != null) {
+            mPanelView.setPanelListener(panelListener);
         }
     }
 

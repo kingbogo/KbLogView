@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.kingbogo.logview.LogView;
+import com.kingbogo.logview.listener.LogPanelListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements Handler.Callback {
+public class MainActivity extends AppCompatActivity implements Handler.Callback, LogPanelListener {
 
     public static final String TAG = "MainActivity";
 
@@ -32,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         LogView.getInstance().setArea("AAA", "BBB", "CCC123123", "ASDFASDFSADF", "546546546546", "021");
 
         LogView.getInstance().setTipsInfo("1、AAAAA; <br/>2、BBBB; <br/>3、CCCC;");
+
+        LogView.getInstance().setPanelListener(this);
     }
 
 
@@ -62,5 +63,10 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
             mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 1000);
         }
         return false;
+    }
+
+    @Override
+    public void onClickLogPanel(int position) {
+        Log.d(TAG, "position: " + position);
     }
 }

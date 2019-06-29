@@ -1,5 +1,6 @@
 package com.kingbogo.logview.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kingbogo.logview.R;
+import com.kingbogo.logview.listener.LogPanelListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
 public class PanelAreaAdapter extends RecyclerView.Adapter {
 
     private List<String> mData = new ArrayList<>();
+    private LogPanelListener mPanelListener;
 
     @NonNull
     @Override
@@ -35,6 +38,14 @@ public class PanelAreaAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.nameTv.setText(mData.get(position));
+        viewHolder.nameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPanelListener != null) {
+                    mPanelListener.onClickLogPanel(viewHolder.getLayoutPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -50,10 +61,6 @@ public class PanelAreaAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void setDat(String... values){
-
-    }
-
     /**
      * 设置数据集
      */
@@ -63,6 +70,13 @@ public class PanelAreaAdapter extends RecyclerView.Adapter {
             mData.addAll(list);
             notifyDataSetChanged();
         }
+    }
+
+    /**
+     * 设备面板事件
+     */
+    public void setPanelListener(LogPanelListener panelListener) {
+        mPanelListener = panelListener;
     }
 
     private static class MyViewHolder extends RecyclerView.ViewHolder {

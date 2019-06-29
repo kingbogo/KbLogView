@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.kingbogo.logview.adapter.PanelAdapter;
 import com.kingbogo.logview.adapter.PanelAreaAdapter;
+import com.kingbogo.logview.listener.LogPanelListener;
 import com.kingbogo.logview.util.CheckUtil;
 
 import java.text.SimpleDateFormat;
@@ -81,6 +82,10 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     public void notifyDataChanged() {
         mPanelAdapter.notifyDataSetChanged();
         // scrollToLastLog();
+    }
+
+    public void setPanelListener(LogPanelListener panelListener) {
+        mAreaAdapter.setPanelListener(panelListener);
     }
 
     public void addArea(String area) {
