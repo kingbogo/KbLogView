@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -25,8 +24,6 @@ import java.util.List;
  * @date 2019/6/27
  */
 public class LogView {
-
-    private static final String TAG = "LogView";
 
     private PanelView mPanelView;
     private FloatingView mFloatView;
@@ -53,8 +50,12 @@ public class LogView {
 
     /**
      * 初始化: 一般在 Application中调用、或在 Activity的onCreate中调用
+     *
+     * @param context 上下文
+     * @param isDebug 是否Debug.   Debug模式下不启用LogView.
      */
-    public void init(Context context) {
+    public void init(Context context, boolean isDebug) {
+        mIsDeBug = isDebug;
         if (!mIsDeBug) {
             return;
         }
@@ -104,7 +105,6 @@ public class LogView {
 
             @Override
             public void onClick(FloatingMagnetView magnetView) {
-                Log.d(TAG, "mFloatView.onClick()...");
                 changeLogState();
             }
         });
@@ -162,12 +162,32 @@ public class LogView {
             return;
         }
 
-        Log.d(TAG, "addLog(), log: " + log);
         if (mPanelView != null) {
             mPanelView.post(new Runnable() {
                 @Override
                 public void run() {
                     mPanelView.addLog(tag, log);
+                    if (isShow4PanelView()) {
+                        mPanelView.notifyDataChanged();
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * 清空所有日志
+     */
+    public void clearLogs() {
+        if (!mIsDeBug) {
+            return;
+        }
+
+        if (mPanelView != null) {
+            mPanelView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPanelView.clearData();
                     if (isShow4PanelView()) {
                         mPanelView.notifyDataChanged();
                     }

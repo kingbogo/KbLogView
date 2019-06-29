@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LogView.getInstance().init(this);
+        LogView.getInstance().init(this, BuildConfig.DEBUG);
 
         mHandler = new Handler(this);
         mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 500);
