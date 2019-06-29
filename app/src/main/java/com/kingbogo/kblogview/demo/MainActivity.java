@@ -23,16 +23,18 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         LogView.getInstance().init(this, BuildConfig.DEBUG);
 
         mHandler = new Handler(this);
-        mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 500);
+        mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 1000);
 
         LogView.getInstance().setArea("AAA", "BBB", "CCC123123", "ASDFASDFSADF", "546546546546", "021");
 
         LogView.getInstance().setTipsInfo("1、AAAAA; <br/>2、BBBB; <br/>3、CCCC;");
 
         LogView.getInstance().setPanelListener(this);
+
     }
 
 
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         if (what == WHAT_ADD_LOG) {
             mHandler.removeMessages(WHAT_ADD_LOG);
             LogView.getInstance().addLog(TAG, String.valueOf(System.currentTimeMillis()));
-            mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 1000);
+            mHandler.sendEmptyMessageDelayed(WHAT_ADD_LOG, 2000);
         }
         return false;
     }

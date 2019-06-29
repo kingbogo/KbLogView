@@ -126,7 +126,7 @@ public class LogView {
 
         mPanelView.setLayoutParams(getLayoutParams());
         mPanelView.setVisibility(View.GONE);
-        container.addView(mPanelView, 0);
+        container.addView(mPanelView, container.getChildCount() - 1);
     }
 
     /**
