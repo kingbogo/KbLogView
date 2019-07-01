@@ -1,16 +1,18 @@
 package com.kingbogo.kblogview.demo;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.kingbogo.logview.LogView;
 import com.kingbogo.logview.listener.LogPanelListener;
 
-public class MainActivity extends AppCompatActivity implements Handler.Callback, LogPanelListener {
+public class MainActivity extends AppCompatActivity implements Handler.Callback, LogPanelListener, View.OnClickListener {
 
     public static final String TAG = "MainActivity";
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.main_click_tv).setOnClickListener(this);
 
         LogView.getInstance().init(this, BuildConfig.DEBUG);
 
@@ -70,5 +74,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     @Override
     public void onClickLogPanel(int position) {
         Log.d(TAG, "position: " + position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.main_click_tv){
+            startActivity(new Intent(this, SecondActivity.class));
+        }
     }
 }

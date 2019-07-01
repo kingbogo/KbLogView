@@ -99,17 +99,7 @@ public class LogView {
         }
 
         mFloatView.attach(activity);
-        mFloatView.icon(R.drawable.kb_icon_log);
-        mFloatView.listener(new MagnetViewListener() {
-            @Override
-            public void onRemove(FloatingMagnetView magnetView) {
-            }
-
-            @Override
-            public void onClick(FloatingMagnetView magnetView) {
-                changeLogState();
-            }
-        });
+        setFloatViewListener();
 
         FrameLayout container = getActivityRoot(activity);
         if (container == null || mPanelView == null) {
@@ -163,9 +153,15 @@ public class LogView {
             return;
         }
 
-        if (mPanelView != null && mContainer != null && ViewCompat.isAttachedToWindow(mPanelView)) {
-            mContainer.removeView(mPanelView);
+        FrameLayout container = getActivityRoot(activity);
+
+        if (mPanelView != null && container != null && ViewCompat.isAttachedToWindow(mPanelView)) {
+            container.removeView(mPanelView);
         }
+        if (mContainer == container) {
+            mContainer = null;
+        }
+
         mFloatView.detach(activity);
     }
 
@@ -344,6 +340,27 @@ public class LogView {
                     }
                 }
             });
+        }
+    }
+
+    private void setFloatViewListener() {
+        if (mFloatView != null && mFloatView.getView() != null) {
+            Boolean isSetted = (Boolean) mFloatView.getView().getTag();
+            if (isSetted == null || !isSetted) {
+                mFloatView.icon(R.drawable.kb_icon_log);
+                mFloatView.listener(new MagnetViewListener() {
+                    @Override
+                    public void onRemove(FloatingMagnetView magnetView) {
+                    }
+
+                    @Override
+                    public void onClick(FloatingMagnetView magnetView) {
+                        changeLogState();
+                    }
+                });
+
+                mFloatView.getView().setTag(true);
+            }
         }
     }
 
