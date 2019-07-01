@@ -1,4 +1,4 @@
-# KbLogViewDemo
+# KbLogView
 
   ![Download](https://api.bintray.com/packages/kingbogo/maven/KbLogView/images/download.svg)
 
