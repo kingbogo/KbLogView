@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_panel_area_tv"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="40dp"
     android:background="@drawable/bg_panel_area_item"
     android:clickable="true"
     android:focusable="true"

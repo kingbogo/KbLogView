@@ -2,6 +2,7 @@ package com.kingbogo.logview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
@@ -129,6 +130,19 @@ public class LogView {
 
         if (mFloatView != null) {
             mFloatView.icon(resId);
+        }
+    }
+
+    /**
+     * 设置背景色值
+     */
+    public void setBg(@ColorInt int colorResId) {
+        if (!mIsDeBug) {
+            return;
+        }
+
+        if (mPanelView != null) {
+            mPanelView.setBg(colorResId);
         }
     }
 

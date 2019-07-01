@@ -2,6 +2,7 @@ package com.kingbogo.logview;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.ColorInt;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,7 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     private PanelAdapter mPanelAdapter;
     private PanelAreaAdapter mAreaAdapter;
 
+    private View mBgView;
     private TextView mTipsTv;
 
     /** 是否横屏 */
@@ -69,6 +71,10 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
                 mRv.scrollToPosition(itemCount - 1);
             }
         }
+    }
+
+    public void setBg(@ColorInt int colorResId) {
+        mBgView.setBackgroundColor(colorResId);
     }
 
     public void addLog(String tag, String log) {
@@ -145,6 +151,7 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
         mAreaAdapter = new PanelAreaAdapter();
         mAreaRv.setAdapter(mAreaAdapter);
 
+        mBgView = rootView.findViewById(R.id.panel_bg_v);
         mTipsTv = rootView.findViewById(R.id.panel_tips_tv);
     }
 

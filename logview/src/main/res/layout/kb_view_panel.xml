@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <View
+        android:id="@+id/panel_bg_v"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#B0000000" />
+        android:background="#CC000000" />
 
     <View
         android:id="@+id/panel_spit_v"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:maxLines="5"
+        android:padding="5dp"
         android:textColor="#FFE4C4"
         android:textSize="11sp"
         android:visibility="gone"
@@ -59,6 +61,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-</merge>
+</android.support.constraint.ConstraintLayout>
 
 

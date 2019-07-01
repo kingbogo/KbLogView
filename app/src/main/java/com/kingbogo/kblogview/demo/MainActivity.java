@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         LogView.getInstance().setPanelListener(this);
 
+//        LogView.getInstance().setBg(R.color.colorAccent);
+
     }
 
 
