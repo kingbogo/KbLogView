@@ -331,8 +331,7 @@ public class LogView {
                         mPanelView.setVisibility(View.GONE);
                     } else {
                         mPanelView.setVisibility(View.VISIBLE);
-                        mPanelView.notifyDataChanged();
-                        mPanelView.scrollToLastLog();
+                        mPanelView.notifyDataChangedAndScrollToBottom();
                     }
                 }
             });

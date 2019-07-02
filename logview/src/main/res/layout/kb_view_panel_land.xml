@@ -9,7 +9,7 @@
         android:id="@+id/panel_bg_v"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC000000" />
+        android:background="#BF000000" />
 
     <View
         android:id="@+id/panel_spit_v"

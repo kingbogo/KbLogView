@@ -87,7 +87,16 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
 
     public void notifyDataChanged() {
         mPanelAdapter.notifyDataSetChanged();
-        // scrollToLastLog();
+
+        // false表示已经滚动到底部
+        if (!mRv.canScrollVertically(1)) {
+            scrollToLastLog();
+        }
+    }
+
+    public void notifyDataChangedAndScrollToBottom() {
+        mPanelAdapter.notifyDataSetChanged();
+        scrollToLastLog();
     }
 
     public void setPanelListener(LogPanelListener panelListener) {
