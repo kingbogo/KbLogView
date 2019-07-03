@@ -61,7 +61,7 @@ public class PanelAdapter extends RecyclerView.Adapter {
      */
     public void clearLog() {
         mData.clear();
-        // notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     private static class MyViewHolder extends RecyclerView.ViewHolder {
