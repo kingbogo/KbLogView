@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class PanelAdapter extends RecyclerView.Adapter {
 
+    private static final int MAX_COUNT = 1000;
+
     private List<String> mData = new ArrayList<>();
 
     @NonNull
@@ -46,13 +48,12 @@ public class PanelAdapter extends RecyclerView.Adapter {
      * 添加一条日志
      */
     public void addLog(String log) {
-        mData.add(log);
-        // 当日志超过1000条就清空500条
-        if (mData.size() > 1000) {
-            List<String> tempLogList = mData.subList(500, 1000);
-            mData.clear();
-            mData = tempLogList;
+        // 当日志超过 最大条数 就清空一半
+        if (mData.size() > MAX_COUNT) {
+            mData.removeAll(mData.subList(0, MAX_COUNT / 2));
         }
+        mData.add(log);
+
         // notifyDataSetChanged();
     }
 

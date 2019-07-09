@@ -182,7 +182,7 @@ public class LogView {
     /**
      * 增加一条日志
      */
-    public void addLog(final String tag, final String log) {
+    public synchronized void addLog(final String tag, final String log) {
         if (!mIsDeBug) {
             return;
         }
