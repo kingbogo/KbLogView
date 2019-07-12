@@ -49,7 +49,7 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     /** 是否横屏 */
     private boolean mIsLand;
 
-    private String mTipsStr;
+    private String mTipsStr = null;
 
     public PanelView(Context context) {
         this(context, null);
@@ -130,7 +130,12 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
 
     public void addTipsInfoItem(String tipsInfo) {
         if (!CheckUtil.isEmpty(tipsInfo)) {
-            String currentTipsInfo = mTipsStr + "<br/>" + tipsInfo;
+            String currentTipsInfo;
+            if (CheckUtil.isEmpty(mTipsStr)) {
+                currentTipsInfo = tipsInfo;
+            } else {
+                currentTipsInfo = mTipsStr + "<br/>" + tipsInfo;
+            }
             mTipsTv.setText(Html.fromHtml(currentTipsInfo));
             mTipsTv.setVisibility(VISIBLE);
             mTipsStr = currentTipsInfo;

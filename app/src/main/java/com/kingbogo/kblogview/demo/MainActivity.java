@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         LogView.getInstance().setArea("AAA", "BBB", "CCC123123", "ASDFASDFSADF", "546546546546", "021");
 
-        LogView.getInstance().setTipsInfo("1、AAAAA; <br/>2、BBBB; ");
+        LogView.getInstance().addTipsInfoItem("1、AAAAA; <br/>2、BBBB; ");
 
         LogView.getInstance().setPanelListener(this);
 
