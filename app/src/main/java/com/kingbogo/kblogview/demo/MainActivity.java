@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
 
         LogView.getInstance().setArea("AAA", "BBB", "CCC123123", "ASDFASDFSADF", "546546546546", "021");
 
-        LogView.getInstance().setTipsInfo("1、AAAAA; <br/>2、BBBB; <br/>3、CCCC;");
+        LogView.getInstance().setTipsInfo("1、AAAAA; <br/>2、BBBB; ");
 
         LogView.getInstance().setPanelListener(this);
 
@@ -81,8 +81,11 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.main_click_tv){
-            startActivity(new Intent(this, SecondActivity.class));
+        if (id == R.id.main_click_tv) {
+//            startActivity(new Intent(this, SecondActivity.class));
+
+            LogView.getInstance().addTipsInfoItem("10、Hello，你好！");
+
         }
     }
 }

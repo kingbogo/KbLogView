@@ -49,6 +49,8 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     /** 是否横屏 */
     private boolean mIsLand;
 
+    private String mTipsStr;
+
     public PanelView(Context context) {
         this(context, null);
     }
@@ -119,11 +121,21 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
         if (!CheckUtil.isEmpty(tipsInfo)) {
             mTipsTv.setText(Html.fromHtml(tipsInfo));
             mTipsTv.setVisibility(VISIBLE);
+            mTipsStr = tipsInfo;
         } else {
+            mTipsStr = null;
             mTipsTv.setVisibility(GONE);
         }
     }
 
+    public void addTipsInfoItem(String tipsInfo) {
+        if (!CheckUtil.isEmpty(tipsInfo)) {
+            String currentTipsInfo = mTipsStr + "<br/>" + tipsInfo;
+            mTipsTv.setText(Html.fromHtml(currentTipsInfo));
+            mTipsTv.setVisibility(VISIBLE);
+            mTipsStr = currentTipsInfo;
+        }
+    }
 
     /**
      * 检测屏幕方向

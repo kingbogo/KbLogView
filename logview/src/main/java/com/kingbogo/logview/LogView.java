@@ -302,6 +302,21 @@ public class LogView {
         }
     }
 
+    public void addTipsInfoItem(final String tipsInfo) {
+        if (!mIsDeBug) {
+            return;
+        }
+
+        if (mPanelView != null) {
+            mPanelView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPanelView.addTipsInfoItem(tipsInfo);
+                }
+            });
+        }
+    }
+
 
     // =================================================== @ private
 
