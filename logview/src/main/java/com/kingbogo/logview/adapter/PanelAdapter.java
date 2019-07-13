@@ -50,8 +50,10 @@ public class PanelAdapter extends RecyclerView.Adapter {
     public void addLog(String log) {
         // 当日志超过 最大条数 就清空一半
         if (mData.size() > MAX_COUNT) {
-            mData.removeAll(mData.subList(0, MAX_COUNT / 2));
+            List<String> delList = new ArrayList<>(mData.subList(0, MAX_COUNT / 2));
+            mData.removeAll(delList);
         }
+
         mData.add(log);
 
         // notifyDataSetChanged();
