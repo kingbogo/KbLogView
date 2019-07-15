@@ -49,7 +49,7 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     /** 是否横屏 */
     private boolean mIsLand;
 
-    private String mTipsStr = null;
+    private String mTipsStr = " #日志页面，供开发人员使用# ";
 
     public PanelView(Context context) {
         this(context, null);
