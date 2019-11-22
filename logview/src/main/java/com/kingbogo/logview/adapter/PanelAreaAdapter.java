@@ -1,6 +1,5 @@
 package com.kingbogo.logview.adapter;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -70,6 +69,14 @@ public class PanelAreaAdapter extends RecyclerView.Adapter {
             mData.addAll(list);
             notifyDataSetChanged();
         }
+    }
+
+    /**
+     * 清除数据
+     */
+    public void clearAllData() {
+        mData.clear();
+        notifyDataSetChanged();
     }
 
     /**

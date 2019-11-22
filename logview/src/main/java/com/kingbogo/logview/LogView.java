@@ -2,9 +2,10 @@ package com.kingbogo.logview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.ColorInt;
+import android.content.res.Configuration;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +15,7 @@ import com.imuxuan.floatingview.FloatingView;
 import com.imuxuan.floatingview.MagnetViewListener;
 import com.kingbogo.logview.listener.LogPanelListener;
 import com.kingbogo.logview.util.CheckUtil;
+import com.kingbogo.logview.util.LogUtil;
 
 import java.util.List;
 
@@ -70,6 +72,13 @@ public class LogView {
         }
 
         mFloatView.add();
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+        params.setMargins(20, params.topMargin, params.rightMargin, params.bottomMargin);
+        mFloatView.layoutParams(params);
     }
 
     /**
@@ -102,7 +111,7 @@ public class LogView {
         mFloatView.attach(activity);
         setFloatViewListener();
 
-        FrameLayout container = getActivityRoot(activity);
+        final FrameLayout container = getActivityRoot(activity);
         if (container == null || mPanelView == null) {
             mContainer = container;
             return;
@@ -115,9 +124,24 @@ public class LogView {
         }
         mContainer = container;
 
+
+        boolean isLand = false;
+        Configuration configuration = activity.getResources().getConfiguration();
+        int orientation = configuration.orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //横屏
+            LogUtil.d("当前为：横屏。。。 ");
+            isLand = true;
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //竖屏
+            LogUtil.d("当前为： 竖屏。。。 ");
+        }
+
+        mPanelView.refreshLayout(isLand);
         mPanelView.setLayoutParams(getLayoutParams());
         mPanelView.setVisibility(View.GONE);
         container.addView(mPanelView, container.getChildCount() - 1);
+
     }
 
     /**
@@ -130,19 +154,6 @@ public class LogView {
 
         if (mFloatView != null) {
             mFloatView.icon(resId);
-        }
-    }
-
-    /**
-     * 设置背景色值
-     */
-    public void setBg(@ColorInt int colorResId) {
-        if (!mIsDeBug) {
-            return;
-        }
-
-        if (mPanelView != null) {
-            mPanelView.setBg(colorResId);
         }
     }
 
@@ -222,27 +233,6 @@ public class LogView {
     }
 
     /**
-     * 添加控制区域数据
-     */
-    public void addArea(final String area) {
-        if (!mIsDeBug) {
-            return;
-        }
-
-        if (CheckUtil.isEmpty(area)) {
-            return;
-        }
-        if (mPanelView != null) {
-            mPanelView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mPanelView.addArea(area);
-                }
-            });
-        }
-    }
-
-    /**
      * 设置控制区域数据
      */
     public void setArea(final String... area) {
@@ -297,21 +287,6 @@ public class LogView {
                 @Override
                 public void run() {
                     mPanelView.setTipsInfo(tipsInfo);
-                }
-            });
-        }
-    }
-
-    public void addTipsInfoItem(final String tipsInfo) {
-        if (!mIsDeBug) {
-            return;
-        }
-
-        if (mPanelView != null) {
-            mPanelView.post(new Runnable() {
-                @Override
-                public void run() {
-                    mPanelView.addTipsInfoItem(tipsInfo);
                 }
             });
         }

@@ -5,7 +5,7 @@ def siteUrl = 'https://github.com/kingbogo/KbLogView'
 def gitUrl = 'https://github.com/kingbogo/KbLogView.git'
 
 // 定义版本标识
-version = "1.1.3"
+version = "1.1.5"
 group = "com.github.kingbogo"
 
 

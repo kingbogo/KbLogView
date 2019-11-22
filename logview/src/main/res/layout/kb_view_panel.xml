@@ -9,7 +9,7 @@
         android:id="@+id/panel_bg_v"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC000000" />
+        android:background="#BF000000" />
 
     <View
         android:id="@+id/panel_spit_v"
@@ -18,7 +18,7 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.65" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/panel_rv"
@@ -37,7 +37,6 @@
         android:padding="5dp"
         android:textColor="#FFE4C4"
         android:textSize="11sp"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/panel_spit_v"
         tools:ignore="SmallSp" />
 
@@ -54,12 +53,13 @@
         android:id="@+id/panel_clear_btn"
         android:layout_width="50dp"
         android:layout_height="38dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/kb_clear"
         android:textColor="#7B68EE"
         android:textSize="13sp"
-        app:layout_constraintRight_toRightOf="@+id/panel_rv"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintBottom_toTopOf="@+id/panel_area_rv"
+        app:layout_constraintRight_toRightOf="@+id/panel_rv" />
 
 </android.support.constraint.ConstraintLayout>
 

@@ -8,8 +8,9 @@
 
     <TextView
         android:id="@+id/main_click_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:text="Click Me"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

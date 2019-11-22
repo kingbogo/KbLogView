@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,7 +37,6 @@
         android:padding="5dp"
         android:textColor="#FFE4C4"
         android:textSize="11sp"
-        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@+id/panel_spit_v"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -58,12 +57,13 @@
         android:id="@+id/panel_clear_btn"
         android:layout_width="50dp"
         android:layout_height="38dp"
+        android:layout_marginTop="25dp"
         android:text="@string/kb_clear"
         android:textColor="#7B68EE"
         android:textSize="13sp"
         app:layout_constraintRight_toRightOf="@+id/panel_rv"
         app:layout_constraintTop_toTopOf="parent" />
 
-</merge>
+</android.support.constraint.ConstraintLayout>
 
 

@@ -1,15 +1,15 @@
 package com.kingbogo.logview;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.support.annotation.ColorInt;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Constraints;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kingbogo.logview.adapter.PanelAdapter;
@@ -34,8 +34,11 @@ import java.util.Locale;
  */
 public class PanelView extends ConstraintLayout implements View.OnClickListener {
 
+    private static final String TIPS_DEFAULT = " #日志页面，供开发人员使用# ";
     private static final String LOG_TAG_FORMAT = "[ %s ][ %s : %s ]";
     private static final SimpleDateFormat mLogDf = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.CHINA);
+
+    private View mRootView;
 
     private RecyclerView mRv;
     private RecyclerView mAreaRv;
@@ -43,13 +46,10 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     private PanelAdapter mPanelAdapter;
     private PanelAreaAdapter mAreaAdapter;
 
-    private View mBgView;
     private TextView mTipsTv;
 
     /** 是否横屏 */
-    private boolean mIsLand;
-
-    private String mTipsStr = " #日志页面，供开发人员使用# ";
+    private boolean mIsLand = false;
 
     public PanelView(Context context) {
         this(context, null);
@@ -62,7 +62,9 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     public PanelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        checkOrientation();
+        mAreaAdapter = new PanelAreaAdapter();
+        mPanelAdapter = new PanelAdapter();
+
         initView();
     }
 
@@ -73,10 +75,6 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
                 mRv.scrollToPosition(itemCount - 1);
             }
         }
-    }
-
-    public void setBg(@ColorInt int colorResId) {
-        mBgView.setBackgroundColor(colorResId);
     }
 
     public void addLog(String tag, String log) {
@@ -105,10 +103,6 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
         mAreaAdapter.setPanelListener(panelListener);
     }
 
-    public void addArea(String area) {
-        mAreaAdapter.addData(area);
-    }
-
     public void setArea(String... areas) {
         mAreaAdapter.setData(new ArrayList<>(Arrays.asList(areas)));
     }
@@ -118,67 +112,56 @@ public class PanelView extends ConstraintLayout implements View.OnClickListener 
     }
 
     public void setTipsInfo(String tipsInfo) {
+        String currentTipsInfo;
         if (!CheckUtil.isEmpty(tipsInfo)) {
-            mTipsTv.setText(Html.fromHtml(tipsInfo));
-            mTipsTv.setVisibility(VISIBLE);
-            mTipsStr = tipsInfo;
+            currentTipsInfo = TIPS_DEFAULT + "<br/>" + tipsInfo;
         } else {
-            mTipsStr = null;
-            mTipsTv.setVisibility(GONE);
+            currentTipsInfo = TIPS_DEFAULT;
         }
+        mTipsTv.setText(Html.fromHtml(currentTipsInfo));
     }
 
-    public void addTipsInfoItem(String tipsInfo) {
-        if (!CheckUtil.isEmpty(tipsInfo)) {
-            String currentTipsInfo;
-            if (CheckUtil.isEmpty(mTipsStr)) {
-                currentTipsInfo = tipsInfo;
-            } else {
-                currentTipsInfo = mTipsStr + "<br/>" + tipsInfo;
-            }
-            mTipsTv.setText(Html.fromHtml(currentTipsInfo));
-            mTipsTv.setVisibility(VISIBLE);
-            mTipsStr = currentTipsInfo;
-        }
-    }
-
-    /**
-     * 检测屏幕方向
-     */
-    private void checkOrientation() {
-        Configuration configuration = this.getResources().getConfiguration();
-        int orientation = configuration.orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //横屏
-            mIsLand = true;
-        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //竖屏
-            mIsLand = false;
-        }
+    public void refreshLayout(boolean isLand) {
+        mIsLand = isLand;
+        initView();
     }
 
     private void initView() {
-        View rootView;
-        if (mIsLand) {
-            rootView = View.inflate(getContext(), R.layout.kb_view_panel_land, this);
-        } else {
-            rootView = View.inflate(getContext(), R.layout.kb_view_panel, this);
+        boolean isRefresh = false;
+        if (mRootView != null && mRootView.getParent() != null) {
+            isRefresh = true;
+            ((ViewGroup) mRootView.getParent()).removeView(mRootView);
         }
 
-        rootView.findViewById(R.id.panel_clear_btn).setOnClickListener(this);
+        if (mIsLand) {
+            mRootView = View.inflate(getContext(), R.layout.kb_view_panel_land, null);
+        } else {
+            mRootView = View.inflate(getContext(), R.layout.kb_view_panel, null);
+        }
+        ConstraintLayout.LayoutParams layoutParams = new Constraints.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        addView(mRootView, layoutParams);
 
-        mRv = rootView.findViewById(R.id.panel_rv);
+        // 初始化
+        mRootView.findViewById(R.id.panel_clear_btn).setOnClickListener(this);
+
+        mRv = mRootView.findViewById(R.id.panel_rv);
         mRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mPanelAdapter = new PanelAdapter();
         mRv.setAdapter(mPanelAdapter);
 
-        mAreaRv = rootView.findViewById(R.id.panel_area_rv);
-        mAreaRv.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        mAreaAdapter = new PanelAreaAdapter();
+        mAreaRv = mRootView.findViewById(R.id.panel_area_rv);
+        int spanCount = 3;
+        if (mIsLand) {
+            spanCount = 2;
+        }
+        mAreaRv.setLayoutManager(new GridLayoutManager(getContext(), spanCount, GridLayoutManager.VERTICAL, false));
         mAreaRv.setAdapter(mAreaAdapter);
 
-        mBgView = rootView.findViewById(R.id.panel_bg_v);
-        mTipsTv = rootView.findViewById(R.id.panel_tips_tv);
+        mTipsTv = mRootView.findViewById(R.id.panel_tips_tv);
+
+        if (isRefresh) {
+            setTipsInfo(null);
+            mAreaAdapter.clearAllData();
+        }
     }
 
     private String formatLog(String tag, String log) {
