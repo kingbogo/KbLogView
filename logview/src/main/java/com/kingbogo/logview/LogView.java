@@ -76,8 +76,8 @@ public class LogView {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
-        params.setMargins(20, params.topMargin, params.rightMargin, params.bottomMargin);
+        params.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        params.setMargins(params.leftMargin, params.topMargin, 20, params.bottomMargin);
         mFloatView.layoutParams(params);
     }
 
