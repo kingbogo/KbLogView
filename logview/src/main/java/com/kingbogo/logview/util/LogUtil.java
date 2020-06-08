@@ -1,7 +1,8 @@
 package com.kingbogo.logview.util;
 
-import android.support.annotation.IntDef;
 import android.util.Log;
+
+import androidx.annotation.IntDef;
 
 import com.kingbogo.logview.BuildConfig;
 

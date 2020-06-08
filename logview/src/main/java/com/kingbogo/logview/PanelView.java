@@ -1,16 +1,17 @@
 package com.kingbogo.logview;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.Constraints;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Constraints;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kingbogo.logview.adapter.PanelAdapter;
 import com.kingbogo.logview.adapter.PanelAreaAdapter;

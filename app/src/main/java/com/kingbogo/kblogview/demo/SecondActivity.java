@@ -1,8 +1,9 @@
 package com.kingbogo.kblogview.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.kingbogo.logview.LogView;
 import com.kingbogo.logview.util.LogUtil;

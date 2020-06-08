@@ -3,12 +3,13 @@ package com.kingbogo.logview;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.annotation.DrawableRes;
-import android.support.v4.view.ViewCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.DrawableRes;
+import androidx.core.view.ViewCompat;
 
 import com.imuxuan.floatingview.FloatingMagnetView;
 import com.imuxuan.floatingview.FloatingView;
@@ -71,6 +72,7 @@ public class LogView {
             mPanelView = new PanelView(context);
         }
 
+        mFloatView.icon(R.drawable.kb_icon_log);
         mFloatView.add();
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
@@ -350,7 +352,7 @@ public class LogView {
         if (mFloatView != null && mFloatView.getView() != null) {
             Boolean isSetted = (Boolean) mFloatView.getView().getTag();
             if (isSetted == null || !isSetted) {
-                mFloatView.icon(R.drawable.kb_icon_log);
+                //mFloatView.icon(R.drawable.kb_icon_log);
                 mFloatView.listener(new MagnetViewListener() {
                     @Override
                     public void onRemove(FloatingMagnetView magnetView) {
